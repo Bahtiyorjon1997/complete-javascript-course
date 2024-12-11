@@ -14,17 +14,27 @@
 
 // handling click events
 // we have a button 'Check' which is clicked to test if the inputted value is equal to the hidden value, lets select this element
+
 const secretNumber = Math.trunc(Math.random() * 20) + 1;
-const number = 0;
 
 console.log('sn', secretNumber);
+
 document.querySelector('.check').addEventListener('click', function () {
-  number = document.querySelector('.guess').value;
+  const guess = Number(document.querySelector('.guess').value);
+
+  if (!guess)
+    document.querySelector('.message').textContent = 'No number guessed';
+  else if (guess === secretNumber)
+    document.querySelector('.message').textContent = 'You won';
+  else if (guess > secretNumber)
+    document.querySelector('.message').textContent = 'Guessed number too high';
+  else if (guess < secretNumber)
+    document.querySelector('.message').textContent = 'Guessed number too low';
 });
 
-// generate ramdom numbers
-const number_1 = Math.trunc(Math.random() * 20) + 1; // Math.trunc returns the integer part of a number. Math.random returns a random floating point number between 0 and 1.
-console.log('gn', number);
+document.querySelector('.again').addEventListener('click', reloadFunc);
 
-if (secretNumber == number)
-  document.querySelector('.number').textContent = number;
+// reload page when again btn clicked
+function reloadFunc() {
+  window.location.reload();
+}
